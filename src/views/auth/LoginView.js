@@ -67,7 +67,7 @@ const LoginView = props => {
                   navigate('/app/customers', { replace: true });
                 })
                 .catch(err => {
-                  alert('huy kirasan xatoku password yoki tel');
+                  alert('huy kirasan xatoku password yoki tel hihihii');
                 });
             }}
           >

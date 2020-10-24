@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-
+import { useTranslation } from 'react-i18next';
 import './LoginView.scss';
 
 import {
@@ -18,6 +18,7 @@ import {
 
 import Page from 'src/components/Page';
 import Axios from 'axios';
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -36,6 +37,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LoginView = props => {
+  const { t } = useTranslation();
+
   const classes = useStyles();
   const navigate = useNavigate();
   const [openSuccess, setOpenSuccess] = React.useState(false);
@@ -73,8 +76,6 @@ const LoginView = props => {
             //     .required('Password is required')
             // })}
             onSubmit={values => {
-              console.log(values);
-
               const data = {
                 phonenumber: values.email,
                 password: values.password
@@ -111,7 +112,7 @@ const LoginView = props => {
                   onClose={handleClose}
                 >
                   <Alert onClose={handleClose} severity="success">
-                    endi kirishing mumkin huypulot
+                    {t('auth.success')}
                   </Alert>
                 </Snackbar>
                 <Snackbar
@@ -121,7 +122,7 @@ const LoginView = props => {
                   onClose={handleClose}
                 >
                   <Alert onClose={handleClose} severity="error">
-                    huy kirasan xatoku kiritgan parol yoki tel
+                    {t('auth.err')}
                   </Alert>
                 </Snackbar>
                 <div className="mid-logo">
@@ -188,7 +189,7 @@ const LoginView = props => {
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Phone number"
+                  label={t('auth.tel')}
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
@@ -200,7 +201,7 @@ const LoginView = props => {
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
-                  label="Password"
+                  label={t('auth.psw')}
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
@@ -217,7 +218,7 @@ const LoginView = props => {
                     type="submit"
                     variant="contained"
                   >
-                    Login
+                    {t('auth.login')}
                   </Button>
                 </Box>
               </form>

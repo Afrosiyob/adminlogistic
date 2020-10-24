@@ -1,0 +1,10 @@
+{
+  "msg": "salom",
+  "auth": {
+    "tel": "Telefon raqamingizni kiriting",
+    "psw": "Parol kiriting",
+    "login": "Kirish",
+    "err": "Kiritilgan ma'lumot xato",
+    "success": "Ma'lumotlar mofaqiyatli kiritildi"
+  }
+}

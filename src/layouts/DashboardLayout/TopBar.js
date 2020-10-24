@@ -9,14 +9,16 @@ import {
   Hidden,
   IconButton,
   Toolbar,
-  makeStyles
+  makeStyles,
+  Button,
+  ButtonGroup
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from 'src/components/Logo';
-
-const useStyles = makeStyles(() => ({
+import { useTranslation } from 'react-i18next';
+const useStyles = makeStyles(theme => ({
   root: {},
   avatar: {
     width: 60,
@@ -27,6 +29,14 @@ const useStyles = makeStyles(() => ({
 const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
+  const { i18n } = useTranslation();
+
+  const [lang, setlang] = useState('uz');
+
+  const changeLang = lang => {
+    setlang(lang);
+    i18n.changeLanguage(lang);
+  };
 
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
@@ -35,20 +45,29 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
           <Logo sizeW={50} sizeH="auto" />
         </RouterLink>
         <Box flexGrow={1} />
-        <Hidden mdDown>
-          <IconButton color="inherit">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton color="inherit">
-            <InputIcon />
-          </IconButton>
-        </Hidden>
+
+        <ButtonGroup
+          variant="contained"
+          color="primary"
+          aria-label="contained white button group"
+        >
+          <Button
+            onClick={() => {
+              changeLang('uz');
+            }}
+          >
+            {' '}
+            UZ
+          </Button>
+          <Button
+            onClick={() => {
+              changeLang('ru');
+            }}
+          >
+            RU
+          </Button>
+        </ButtonGroup>
+
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />

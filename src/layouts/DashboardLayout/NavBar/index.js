@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -24,6 +24,8 @@ import {
   MessageSquare as MessageSquareIcon
 } from 'react-feather';
 import NavItem from './NavItem';
+
+import { useTranslation } from 'react-i18next';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -79,6 +81,7 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -94,6 +97,9 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           {user.name}
         </Typography>
       </Box>
+
+      <h3> {t('msg')} </h3>
+
       <Divider />
       <Box p={2}>
         <List>

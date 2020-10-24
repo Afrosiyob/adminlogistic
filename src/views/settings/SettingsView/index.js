@@ -1,5 +1,12 @@
 import React from 'react';
-import { Box, Container, makeStyles, Grid } from '@material-ui/core';
+import {
+  Box,
+  Container,
+  makeStyles,
+  Grid,
+  Card,
+  CardContent
+} from '@material-ui/core';
 import Page from 'src/components/Page';
 import TodoAddress from './TodoAddress/TodoAddress';
 import TodoCar from './TodoCar/TodoCar';
@@ -19,14 +26,18 @@ const SettingsView = () => {
   return (
     <Page className={classes.root} title="Settings">
       <Container maxWidth="lg">
-        <Grid container spacing={3}>
-          <Grid item lg={6} md={12} xs={12}>
-            <TodoAddress />
-          </Grid>
-          <Grid item lg={6} md={12} xs={12}>
-            <TodoCar />
-          </Grid>
-        </Grid>
+        <Card>
+          <CardContent>
+            <Grid container spacing={3}>
+              <Grid item lg={6} md={12} xs={12}>
+                <TodoAddress />
+              </Grid>
+              <Grid item lg={6} md={12} xs={12}>
+                <TodoCar />
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
       </Container>
     </Page>
   );

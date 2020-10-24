@@ -22,7 +22,7 @@ const routes = [
       { path: 'dashboard', element: <DashboardView /> },
       { path: 'products', element: <ProductListView /> },
       { path: 'settings', element: <SettingsView /> },
-      { path: 'testpage', element: <TestPage /> },
+      { path: 'adddriver', element: <TestPage /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

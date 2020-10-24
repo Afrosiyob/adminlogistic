@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
 import './LoginView.scss';
 
 import {
@@ -15,19 +18,36 @@ import {
 
 import Page from 'src/components/Page';
 import Axios from 'axios';
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.dark,
     height: '100%',
     paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
+    paddingTop: theme.spacing(3),
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2)
+    }
   }
 }));
 
 const LoginView = props => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [openSuccess, setOpenSuccess] = React.useState(false);
+  const [openError, setOpenError] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSuccess(false);
+    setOpenError(false);
+  };
 
   return (
     <Page className={classes.root} title="Login">
@@ -64,10 +84,13 @@ const LoginView = props => {
                 .then(res => {
                   console.log(res);
                   console.log(res.data);
-                  navigate('/app/customers', { replace: true });
+                  setOpenSuccess(true);
+                  setTimeout(() => {
+                    navigate('/app/customers', { replace: true });
+                  }, 1000);
                 })
                 .catch(err => {
-                  alert('huy kirasan xatoku password yoki tel hihihii');
+                  setOpenError(true);
                 });
             }}
           >
@@ -76,11 +99,31 @@ const LoginView = props => {
               handleBlur,
               handleChange,
               handleSubmit,
-              isSubmitting,
+
               touched,
               values
             }) => (
               <form onSubmit={handleSubmit}>
+                <Snackbar
+                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  open={openSuccess}
+                  autoHideDuration={3000}
+                  onClose={handleClose}
+                >
+                  <Alert onClose={handleClose} severity="success">
+                    endi kirishing mumkin huypulot
+                  </Alert>
+                </Snackbar>
+                <Snackbar
+                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  open={openError}
+                  autoHideDuration={3000}
+                  onClose={handleClose}
+                >
+                  <Alert onClose={handleClose} severity="error">
+                    huy kirasan xatoku kiritgan parol yoki tel
+                  </Alert>
+                </Snackbar>
                 <div className="mid-logo">
                   <svg
                     width="254"

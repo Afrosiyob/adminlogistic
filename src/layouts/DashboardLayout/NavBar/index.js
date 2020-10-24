@@ -20,7 +20,8 @@ import {
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  Users as UsersIcon,
+  MessageSquare as MessageSquareIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
@@ -38,7 +39,7 @@ const items = [
   },
   {
     href: '/app/products',
-    icon: ShoppingBagIcon,
+    icon: MessageSquareIcon,
     title: 'SMS junatish'
   },
   {
@@ -51,25 +52,11 @@ const items = [
     icon: SettingsIcon,
     title: 'TO DO'
   },
+
   {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
+    href: '/app/adddriver',
     icon: UserPlusIcon,
-    title: 'Register'
-  },
-  {
-    href: '/app/testpage',
-    icon: UserPlusIcon,
-    title: 'TestPage'
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
+    title: "Haydovchi qo'shish"
   }
 ];
 

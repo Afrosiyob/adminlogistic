@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
+import AddDriver from './AddDriver';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,7 +19,7 @@ function TestPage() {
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item lg={6} md={12} xs={12}>
-            wefrwefew
+            <AddDriver />
           </Grid>
         </Grid>
       </Container>

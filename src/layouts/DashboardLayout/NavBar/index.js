@@ -25,8 +25,6 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
-import { useTranslation } from 'react-i18next';
-
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
   jobTitle: 'Senior Developer',
@@ -81,7 +79,6 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -97,8 +94,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           {user.name}
         </Typography>
       </Box>
-
-      <h3> {t('msg')} </h3>
 
       <Divider />
       <Box p={2}>

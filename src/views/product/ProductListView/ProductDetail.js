@@ -38,7 +38,7 @@ function TypographyDemo(props) {
 
   return (
     <div>
-      {variants.map((variant) => (
+      {variants.map(variant => (
         <Typography component="div" key={variant} variant={variant}>
           {loading ? <Skeleton /> : variant}
         </Typography>
@@ -48,41 +48,40 @@ function TypographyDemo(props) {
 }
 
 TypographyDemo.propTypes = {
-  loading: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 const myMassArry = [];
 
 const ProductDetail = ({ className, ...rest }) => {
-
   const [isMyBool, setIsMyBool] = useState(false);
   const [myUsers, setMyUsers] = useState(false);
 
   useEffect(() => {
     let token = localStorage.getItem('logen-authorization');
-    if(token === null)
-      token = '';
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOTQ3ZjQ5NmYxZjFlNzBiNGU4YmE2NSIsImlhdCI6MTYwMzcwOTQ1MywiZXhwIjoxNjA2MzAxNDUzfQ.40ca0I8Ii83-9chdXOaIvRDhty3XM6J6aeFgFQ-7pyc";
+    if (token === null) token = '';
+    token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOTQ3ZjQ5NmYxZjFlNzBiNGU4YmE2NSIsImlhdCI6MTYwMzcwOTQ1MywiZXhwIjoxNjA2MzAxNDUzfQ.40ca0I8Ii83-9chdXOaIvRDhty3XM6J6aeFgFQ-7pyc';
     axios({
       method: 'get',
       url: 'http://195.158.2.207/api/v1/users',
       headers: {
         Authorization: 'Bearer ' + token
-      },
-    })
-    .then(result => {
-      for(let i=0; i<result.data.data.length; i++) {
-        if(!myMassArry.includes(result.data.data[i].baggageMass))
-          myMassArry.push(result.data.data[i].baggageMass)
       }
-      setMyUsers(result.data.data);
-      myMassArry.sort(function(a, b) {
-        return a - b;
-      });
-      console.log(myMassArry);
     })
-    .catch(err => console.log(err))
-  }, [])
+      .then(result => {
+        for (let i = 0; i < result.data.data.length; i++) {
+          if (!myMassArry.includes(result.data.data[i].baggageMass))
+            myMassArry.push(result.data.data[i].baggageMass);
+        }
+        setMyUsers(result.data.data);
+        myMassArry.sort(function(a, b) {
+          return a - b;
+        });
+        console.log(myMassArry);
+      })
+      .catch(err => console.log(err));
+  }, []);
 
   const classes = useStyles();
   const [values, setValues] = useState({
@@ -93,31 +92,29 @@ const ProductDetail = ({ className, ...rest }) => {
   const hundlClik = () => {
     setIsMyBool(true);
     let token = localStorage.getItem('logen-authorization');
-    if(token === null)
-      token = '';
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOTQ3ZjQ5NmYxZjFlNzBiNGU4YmE2NSIsImlhdCI6MTYwMzcwOTQ1MywiZXhwIjoxNjA2MzAxNDUzfQ.40ca0I8Ii83-9chdXOaIvRDhty3XM6J6aeFgFQ-7pyc";
+    if (token === null) token = '';
+    token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOTQ3ZjQ5NmYxZjFlNzBiNGU4YmE2NSIsImlhdCI6MTYwMzcwOTQ1MywiZXhwIjoxNjA2MzAxNDUzfQ.40ca0I8Ii83-9chdXOaIvRDhty3XM6J6aeFgFQ-7pyc';
 
     axios({
       method: 'post',
       url: 'http://195.158.2.207/api/v1/users/sendmessage',
       data: {
         baggageMass: `${values.weight}`,
-        textMessage: values.message,
+        textMessage: values.message
       },
       headers: {
         Authorization: 'Bearer ' + token
-      },
+      }
     })
-    .then(result => {
-      if(result.data.success)
-        alert('Xabar yuborildi')
-      else
-        alert('Xabar yuborishda xato yuz berdi')
+      .then(result => {
+        if (result.data.success) alert('Xabar yuborildi');
+        else alert('Xabar yuborishda xato yuz berdi');
 
-      setIsMyBool(false)
-    })
-    .catch(err => console.log(err))
-  }
+        setIsMyBool(false);
+      })
+      .catch(err => console.log(err));
+  };
 
   const handleChange = event => {
     setValues({
@@ -126,11 +123,8 @@ const ProductDetail = ({ className, ...rest }) => {
     });
   };
 
-  return (
-
-    
-      myUsers
-      ?<form noValidate className={clsx(classes.root, className)} {...rest}>
+  return myUsers ? (
+    <form noValidate className={clsx(classes.root, className)} {...rest}>
       <Card>
         <CardHeader subheader="Haydovchilarga ma'lumot junatish" title="SMS " />
         <Divider />
@@ -152,16 +146,17 @@ const ProductDetail = ({ className, ...rest }) => {
                   <MenuItem value="" disabled>
                     Tonna
                   </MenuItem>
-                  {myMassArry.map((item) => <MenuItem key={item} value={item}>{item}</MenuItem>)}
+                  {myMassArry.map(item => (
+                    <MenuItem key={item} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
                   <MenuItem value={'ALL'}>ALL</MenuItem>
                 </Select>
-                <FormHelperText>
-                  {' '}
-                  Og'irlikni kiriting{' '}
-                </FormHelperText>
+                <FormHelperText> Og'irlikni kiriting </FormHelperText>
               </FormControl>
             </Grid>
-            
+
             <Grid item md={12} xs={12}>
               <TextField
                 helperText="Xabar kiriting"
@@ -180,19 +175,24 @@ const ProductDetail = ({ className, ...rest }) => {
         </CardContent>
         <Divider />
         <Box display="flex" justifyContent="flex-end" p={2}>
-          <Button disabled={isMyBool} onClick={hundlClik} color="primary" variant="contained">
+          <Button
+            disabled={isMyBool}
+            onClick={hundlClik}
+            color="primary"
+            variant="contained"
+          >
             Send Message
           </Button>
         </Box>
       </Card>
     </form>
+  ) : (
     // scleton
-    :<Grid container spacing={8}>
-        <Grid item xs>
-          <TypographyDemo loading />
-        </Grid>
+    <Grid container spacing={8}>
+      <Grid item xs>
+        <TypographyDemo loading />
       </Grid>
-    
+    </Grid>
   );
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import FormData from 'form-data';
 import './AddDriver.scss';
 
 import {
@@ -38,6 +39,23 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2)
   }
 }));
+
+const submit = (values) => {
+  let fullname = `${values.firstName} ${values.lastName}`;
+  let formData = new FormData();
+  formData.append('phonenumber', values.telephone);
+  formData.append('fullname', fullname);
+  formData.append("password", values.password);
+  formData.append("transportType", values.cars);
+  formData.append("transportGovNumber", values.car_number);
+  formData.append("location", values.location)
+  formData.append("baggageVolume", values.mass_one);
+  formData.append("volumeType", values.mass_two);
+  formData.append("passportPhoto", values.passport, values.passport.name);
+  formData.append("techPassportPhoto", values.tech_passport, values.tech_passport.name);
+  console.log(formData);
+}
+
 
 const AddDriver = () => {
   const classes = useStyles();
@@ -97,10 +115,8 @@ const AddDriver = () => {
                   passport: Yup.mixed().required('A file is required'),
                   tech_passport: Yup.mixed().required('A file is required')
                 })}
-                onSubmit={(values, isSubmitting) => {
-                  setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                  }, 500);
+                onSubmit={(values) => {
+                  submit(values);
                 }}
               >
                 {({
@@ -108,6 +124,7 @@ const AddDriver = () => {
                   handleBlur,
                   handleChange,
                   handleSubmit,
+                  setFieldValue,
                   isSubmitting,
                   touched,
                   values
@@ -294,8 +311,9 @@ const AddDriver = () => {
                       margin="normal"
                       name="passport"
                       onBlur={handleBlur}
-                      onChange={handleChange}
+                      onChange={(e)=>{setFieldValue('passport', e.target.files[0])}}
                       type="file"
+
                       variant="outlined"
                     />
 
@@ -309,10 +327,32 @@ const AddDriver = () => {
                       margin="normal"
                       name="tech_passport"
                       onBlur={handleBlur}
-                      onChange={handleChange}
+                      onChange={(e)=>{setFieldValue('tech_passport', e.target.files[0])}}
+
                       type="file"
+                      value={values.tech_passport}
                       variant="outlined"
                     />
+                    {/* fwfwefwefwefewfwefwefwefwefwefwefwefwefwefweffewfwef */}
+                    {/* <Box alignItems="center" display="flex" ml={-1}>
+                  <Checkbox
+                    checked={values.policy}
+                    name="policy"
+                    onChange={handleChange}
+                  />
+                  <Typography color="textSecondary" variant="body1">
+                    I have read the{' '}
+                    <Link
+                      color="primary"
+                      component={RouterLink}
+                      to="#"
+                      underline="always"
+                      variant="h6"
+                    >
+                      Terms and Conditions
+                    </Link>
+                  </Typography>
+                </Box> */}
 
                     <Box my={2}>
                       <Button

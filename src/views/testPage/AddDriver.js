@@ -2,6 +2,9 @@ import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import FormData from 'form-data';
+import './AddDriver.scss';
+
 import {
   Box,
   Button,
@@ -13,7 +16,11 @@ import {
   Typography,
   makeStyles,
   Card,
-  CardContent
+  CardContent,
+  Select,
+  InputLabel,
+  MenuItem,
+  FormControl
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 
@@ -23,8 +30,36 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 200
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2)
   }
 }));
+
+const submit = values => {
+  let fullname = `${values.firstName} ${values.lastName}`;
+  let formData = new FormData();
+  formData.append('phonenumber', values.telephone);
+  formData.append('fullname', fullname);
+  formData.append('password', values.password);
+  formData.append('transportType', values.cars);
+  formData.append('transportGovNumber', values.car_number);
+  formData.append('location', values.location);
+  formData.append('baggageVolume', values.mass_one);
+  formData.append('volumeType', values.mass_two);
+  formData.append('passportPhoto', values.passport, values.passport.name);
+  formData.append(
+    'techPassportPhoto',
+    values.tech_passport,
+    values.tech_passport.name
+  );
+  debugger;
+  console.log(formData);
+};
 
 const AddDriver = () => {
   const classes = useStyles();
@@ -51,8 +86,10 @@ const AddDriver = () => {
                   car_number: '',
                   mass_one: '',
                   mass_two: '',
+                  cars: '',
                   passport: '',
-                  tech_passport: ''
+                  tech_passport: '',
+                  loaction: ''
                 }}
                 validationSchema={Yup.object().shape({
                   firstName: Yup.string()
@@ -77,13 +114,13 @@ const AddDriver = () => {
                   mass_two: Yup.number('plase enter number').required(
                     'required'
                   ),
+                  cars: Yup.string().required('Required'),
+
                   passport: Yup.mixed().required('A file is required'),
                   tech_passport: Yup.mixed().required('A file is required')
                 })}
-                onSubmit={(values, isSubmitting) => {
-                  setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                  }, 500);
+                onSubmit={values => {
+                  submit(values);
                 }}
               >
                 {({
@@ -91,6 +128,7 @@ const AddDriver = () => {
                   handleBlur,
                   handleChange,
                   handleSubmit,
+                  setFieldValue,
                   isSubmitting,
                   touched,
                   values
@@ -219,6 +257,56 @@ const AddDriver = () => {
                       variant="outlined"
                     />
 
+                    <FormControl
+                      variant="outlined"
+                      className={classes.formControl}
+                      error={Boolean(touched.cars && errors.cars)}
+                    >
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Cars
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={values.cars}
+                        onChange={handleChange}
+                        label="Age"
+                        name="cars"
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                      </Select>
+                    </FormControl>
+
+                    <FormControl
+                      variant="outlined"
+                      className={classes.formControl}
+                      error={Boolean(touched.location && errors.location)}
+                    >
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        location
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={values.location}
+                        onChange={handleChange}
+                        label="Age"
+                        name="loaction"
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                      </Select>
+                    </FormControl>
+
                     <TextField
                       error={Boolean(touched.passport && errors.passport)}
                       fullWidth
@@ -227,9 +315,10 @@ const AddDriver = () => {
                       margin="normal"
                       name="passport"
                       onBlur={handleBlur}
-                      onChange={handleChange}
+                      onChange={e => {
+                        setFieldValue('passport', e.target.files[0]);
+                      }}
                       type="file"
-                      value={values.passport}
                       variant="outlined"
                     />
 
@@ -243,9 +332,10 @@ const AddDriver = () => {
                       margin="normal"
                       name="tech_passport"
                       onBlur={handleBlur}
-                      onChange={handleChange}
+                      onChange={e => {
+                        setFieldValue('tech_passport', e.target.files[0]);
+                      }}
                       type="file"
-                      value={values.tech_passport}
                       variant="outlined"
                     />
                     {/* fwfwefwefwefewfwefwefwefwefwefwefwefwefwefweffewfwef */}

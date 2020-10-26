@@ -24,6 +24,7 @@ import {
   MessageSquare as MessageSquareIcon
 } from 'react-feather';
 import NavItem from './NavItem';
+import { useTranslation } from 'react-i18next';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -35,28 +36,28 @@ const items = [
   {
     href: '/app/customers',
     icon: UsersIcon,
-    title: 'Haydovchilar'
+    title: 'navBar.drivers'
   },
   {
     href: '/app/products',
     icon: MessageSquareIcon,
-    title: 'SMS junatish'
+    title: 'navBar.sendMsg'
   },
   {
     href: '/app/account',
     icon: UserIcon,
-    title: "Accountni O'zgartirish"
+    title: 'navBar.editAccount'
   },
   {
     href: '/app/settings',
     icon: SettingsIcon,
-    title: 'TO DO'
+    title: 'navBar.addData'
   },
 
   {
     href: '/app/adddriver',
     icon: UserPlusIcon,
-    title: "Haydovchi qo'shish"
+    title: 'navBar.addDriver'
   }
 ];
 
@@ -79,6 +80,7 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -102,7 +104,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             <NavItem
               href={item.href}
               key={item.title}
-              title={item.title}
+              title={t(item.title)}
               icon={item.icon}
             />
           ))}

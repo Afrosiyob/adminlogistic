@@ -1,0 +1,35 @@
+.top-table-wrap {
+    // background-color: red;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    div.item-left {
+        // width: 30%;
+    }
+
+    div.item-right {
+        display: flex;
+        flex-wrap: wrap;
+
+        div.item {
+            margin-left: 10px;
+
+
+            @media all and (max-width:768px) {
+                margin-top: 10px;
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    }
+
+    div.item-left,
+    div.item-right {
+        @media all and (max-width:768px) {
+            margin-top: 10px;
+            width: 100%;
+        }
+    }
+}

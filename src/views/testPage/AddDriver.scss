@@ -1,0 +1,26 @@
+.file-input-custom {
+
+    padding: 18.5px 14px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    display: flex;
+    font: 400 13.3333px Arial;
+    margin-bottom: 15px;
+
+    @media all and (max-width:768px) {
+        flex-direction: column;
+    }
+
+    label {
+        margin-right: 15px;
+        font-size: 16px;
+
+        @media all and (max-width:768px) {
+            margin-bottom: 10px;
+        }
+    }
+
+    &:hover {
+        border: 1px solid black;
+    }
+}

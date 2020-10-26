@@ -2,6 +2,8 @@ import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import './AddDriver.scss';
+
 import {
   Box,
   Button,
@@ -13,7 +15,11 @@ import {
   Typography,
   makeStyles,
   Card,
-  CardContent
+  CardContent,
+  Select,
+  InputLabel,
+  MenuItem,
+  FormControl
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 
@@ -23,6 +29,13 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 200
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2)
   }
 }));
 
@@ -51,8 +64,10 @@ const AddDriver = () => {
                   car_number: '',
                   mass_one: '',
                   mass_two: '',
+                  cars: '',
                   passport: '',
-                  tech_passport: ''
+                  tech_passport: '',
+                  loaction: ''
                 }}
                 validationSchema={Yup.object().shape({
                   firstName: Yup.string()
@@ -77,6 +92,8 @@ const AddDriver = () => {
                   mass_two: Yup.number('plase enter number').required(
                     'required'
                   ),
+                  cars: Yup.string().required('Required'),
+
                   passport: Yup.mixed().required('A file is required'),
                   tech_passport: Yup.mixed().required('A file is required')
                 })}
@@ -219,6 +236,56 @@ const AddDriver = () => {
                       variant="outlined"
                     />
 
+                    <FormControl
+                      variant="outlined"
+                      className={classes.formControl}
+                      error={Boolean(touched.cars && errors.cars)}
+                    >
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Cars
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={values.cars}
+                        onChange={handleChange}
+                        label="Age"
+                        name="cars"
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                      </Select>
+                    </FormControl>
+
+                    <FormControl
+                      variant="outlined"
+                      className={classes.formControl}
+                      error={Boolean(touched.location && errors.location)}
+                    >
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        location
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={values.location}
+                        onChange={handleChange}
+                        label="Age"
+                        name="loaction"
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                      </Select>
+                    </FormControl>
+
                     <TextField
                       error={Boolean(touched.passport && errors.passport)}
                       fullWidth
@@ -229,7 +296,6 @@ const AddDriver = () => {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       type="file"
-                      value={values.passport}
                       variant="outlined"
                     />
 
@@ -245,29 +311,8 @@ const AddDriver = () => {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       type="file"
-                      value={values.tech_passport}
                       variant="outlined"
                     />
-                    {/* fwfwefwefwefewfwefwefwefwefwefwefwefwefwefweffewfwef */}
-                    {/* <Box alignItems="center" display="flex" ml={-1}>
-                  <Checkbox
-                    checked={values.policy}
-                    name="policy"
-                    onChange={handleChange}
-                  />
-                  <Typography color="textSecondary" variant="body1">
-                    I have read the{' '}
-                    <Link
-                      color="primary"
-                      component={RouterLink}
-                      to="#"
-                      underline="always"
-                      variant="h6"
-                    >
-                      Terms and Conditions
-                    </Link>
-                  </Typography>
-                </Box> */}
 
                     <Box my={2}>
                       <Button

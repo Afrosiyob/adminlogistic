@@ -6,5 +6,12 @@
     "login": "Kirish",
     "err": "Kiritilgan ma'lumot xato",
     "success": "Ma'lumotlar mofaqiyatli kiritildi"
+  },
+  "navBar": {
+    "drivers": "Haydovchilar",
+    "sendMsg": "Xabar jo'natish",
+    "editAccount": "Accountni o'zgartirish",
+    "addData": "Ma'lumotlar qo'shish",
+    "addDriver": "Haydovchi qo'shish"
   }
 }

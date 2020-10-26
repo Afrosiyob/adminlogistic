@@ -40,22 +40,26 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const submit = (values) => {
+const submit = values => {
   let fullname = `${values.firstName} ${values.lastName}`;
   let formData = new FormData();
   formData.append('phonenumber', values.telephone);
   formData.append('fullname', fullname);
-  formData.append("password", values.password);
-  formData.append("transportType", values.cars);
-  formData.append("transportGovNumber", values.car_number);
-  formData.append("location", values.location)
-  formData.append("baggageVolume", values.mass_one);
-  formData.append("volumeType", values.mass_two);
-  formData.append("passportPhoto", values.passport, values.passport.name);
-  formData.append("techPassportPhoto", values.tech_passport, values.tech_passport.name);
+  formData.append('password', values.password);
+  formData.append('transportType', values.cars);
+  formData.append('transportGovNumber', values.car_number);
+  formData.append('location', values.location);
+  formData.append('baggageVolume', values.mass_one);
+  formData.append('volumeType', values.mass_two);
+  formData.append('passportPhoto', values.passport, values.passport.name);
+  formData.append(
+    'techPassportPhoto',
+    values.tech_passport,
+    values.tech_passport.name
+  );
+  debugger;
   console.log(formData);
-}
-
+};
 
 const AddDriver = () => {
   const classes = useStyles();
@@ -115,7 +119,7 @@ const AddDriver = () => {
                   passport: Yup.mixed().required('A file is required'),
                   tech_passport: Yup.mixed().required('A file is required')
                 })}
-                onSubmit={(values) => {
+                onSubmit={values => {
                   submit(values);
                 }}
               >
@@ -311,9 +315,10 @@ const AddDriver = () => {
                       margin="normal"
                       name="passport"
                       onBlur={handleBlur}
-                      onChange={(e)=>{setFieldValue('passport', e.target.files[0])}}
+                      onChange={e => {
+                        setFieldValue('passport', e.target.files[0]);
+                      }}
                       type="file"
-
                       variant="outlined"
                     />
 
@@ -327,10 +332,10 @@ const AddDriver = () => {
                       margin="normal"
                       name="tech_passport"
                       onBlur={handleBlur}
-                      onChange={(e)=>{setFieldValue('tech_passport', e.target.files[0])}}
-
+                      onChange={e => {
+                        setFieldValue('tech_passport', e.target.files[0]);
+                      }}
                       type="file"
-                      value={values.tech_passport}
                       variant="outlined"
                     />
                     {/* fwfwefwefwefewfwefwefwefwefwefwefwefwefwefweffewfwef */}

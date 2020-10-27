@@ -117,7 +117,7 @@ const Results = ({ className, customers, users, ...rest }) => {
   console.log(
     'props in users ===== wefcwef============== wefewf======== wefwef========='
   );
-  console.log(users);
+  console.log(users.data[0].fullname);
   console.log('====================================');
 
   return (
@@ -150,7 +150,25 @@ const Results = ({ className, customers, users, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map(customer => (
+              {users.data.slice(0, limit).map((user, index) => (
+                <TableRow hover>
+                  <TableCell>
+                    <Checkbox
+                      checked={selectedCustomerIds.indexOf(index) !== -1}
+                      onChange={event => handleSelectOne(event, index)}
+                      value="true"
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <UserDetailModal
+                      getInitials={getInitials(user.fullname)}
+                      customerName={user.fullname}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+
+              {/* {customers.slice(0, limit).map(customer => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -197,7 +215,7 @@ const Results = ({ className, customers, users, ...rest }) => {
                     {moment(customer.createdAt).format('DD/MM/YYYY')}
                   </TableCell>
                 </TableRow>
-              ))}
+              ))} */}
             </TableBody>
           </Table>
         </Box>

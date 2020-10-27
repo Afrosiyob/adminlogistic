@@ -44,13 +44,6 @@ export default function UserDetailModal(props) {
         display="flex"
         onClick={handleClickOpen('paper')}
       >
-        <Avatar
-          variant="square"
-          className={props.customClassName}
-          src={props.srcImg}
-        >
-          {props.getInitials}
-        </Avatar>
         <Typography color="textPrimary" variant="body1">
           {props.customerName}
         </Typography>

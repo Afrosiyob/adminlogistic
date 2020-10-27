@@ -47,7 +47,7 @@ const CustomerListView = () => {
       <Container maxWidth={false}>
         <Toolbar />
         <Box mt={3}>
-          <Results customers={customers} users={users} />
+          {users && <Results customers={customers} users={users} />}
         </Box>
       </Container>
     </Page>

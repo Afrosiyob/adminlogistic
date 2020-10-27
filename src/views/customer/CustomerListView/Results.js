@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Avatar,
@@ -18,6 +19,9 @@ import {
   makeStyles
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
+import { Link, useParams } from 'react-router-dom';
+import UserDetailModal from './UserDetailModal';
+import Axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -27,10 +31,47 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Results = ({ className, customers, ...rest }) => {
+  let { id } = useParams();
   const classes = useStyles();
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+
+  const [users, setUsers] = useState({ data: [] });
+
+  // useEffect(() => {
+  //   let token = localStorage.getItem('logen-authorization');
+  //   Axios.get({
+  //     url: 'http://195.158.2.207/api/v1/users?page=1',
+  //     headers: {
+  //       Authorization: 'Bearer ' + token
+  //     }
+  //   })
+  //     .then(result => {
+  //       setUsers('wefwef this is table data' + result.data);
+
+  //       console.log(users);
+  //     })
+  //     .catch(err => console.log(err));
+  // }, []);
+
+  useEffect(() => {
+    let token = localStorage.getItem('logen-authorization');
+    Axios.get('http://195.158.2.207/api/v1/users?page=1', {
+      headers: { Authorization: 'Bearer ' + token }
+    })
+      .then(res => {
+        // setUsers(res.data);
+        console.log('====================================');
+        console.log('this is table data = ' + res);
+        console.log('====================================');
+      })
+      .catch(err => {
+        console.log('====================================');
+        console.log(err);
+        console.log('====================================');
+      });
+  }, []);
 
   const handleSelectAll = event => {
     let newSelectedCustomerIds;
@@ -97,11 +138,15 @@ const Results = ({ className, customers, ...rest }) => {
                     onChange={handleSelectAll}
                   />
                 </TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
+                <TableCell>Full name</TableCell>
+                <TableCell>PhoneNumber</TableCell>
                 <TableCell>Location</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell>Registration date</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell> Transport Type </TableCell>
+                <TableCell> Transport Nomer </TableCell>
+                <TableCell> B_Value </TableCell>
+                <TableCell>B_Mass</TableCell>
+                <TableCell>Time of Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -120,17 +165,12 @@ const Results = ({ className, customers, ...rest }) => {
                   </TableCell>
 
                   <TableCell>
-                    <Box alignItems="center" display="flex">
-                      <Avatar
-                        className={classes.avatar}
-                        src={customer.avatarUrl}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar>
-                      <Typography color="textPrimary" variant="body1">
-                        {customer.name}
-                      </Typography>
-                    </Box>
+                    <UserDetailModal
+                      customClassName={classes.avatar}
+                      srcImg={customer.avatarUrl}
+                      getInitials={getInitials(customer.name)}
+                      customerName={customer.name}
+                    />
                   </TableCell>
 
                   <TableCell>{customer.email}</TableCell>
@@ -141,6 +181,18 @@ const Results = ({ className, customers, ...rest }) => {
 
                   <TableCell>{customer.phone}</TableCell>
 
+                  <TableCell>
+                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                  </TableCell>
+                  <TableCell>
+                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                  </TableCell>
+                  <TableCell>
+                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                  </TableCell>
+                  <TableCell>
+                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                  </TableCell>
                   <TableCell>
                     {moment(customer.createdAt).format('DD/MM/YYYY')}
                   </TableCell>

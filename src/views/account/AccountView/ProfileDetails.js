@@ -20,7 +20,10 @@ const useStyles = makeStyles(() => ({
 const ProfileDetails = ({ className, ...rest }) => {
   const classes = useStyles();
   const [values, setValues] = useState({
+    fullName: '',
+
     phonenumber: '',
+    currentPassword: '',
     password: '',
     confirmpassword: ''
   });
@@ -50,6 +53,18 @@ const ProfileDetails = ({ className, ...rest }) => {
             <Grid item md={12} xs={12}>
               <TextField
                 fullWidth
+                helperText="Fullname"
+                label="FullName"
+                name="fullName"
+                onChange={handleChange}
+                required
+                value={values.fullName}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item md={12} xs={12}>
+              <TextField
+                fullWidth
                 helperText="Telefon raqamingizni kiriting"
                 label="Phonenumber"
                 name="phonenumber"
@@ -61,9 +76,21 @@ const ProfileDetails = ({ className, ...rest }) => {
             </Grid>
             <Grid item md={12} xs={12}>
               <TextField
+                helperText="Eski  parolni kiriting"
+                fullWidth
+                label="Current passowrd"
+                name="currentPassword"
+                onChange={handleChange}
+                required
+                value={values.currentPassword}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item md={12} xs={12}>
+              <TextField
                 helperText="Yangi parol kiriting"
                 fullWidth
-                label="Password"
+                label=" New Password"
                 name="password"
                 onChange={handleChange}
                 required
@@ -75,7 +102,7 @@ const ProfileDetails = ({ className, ...rest }) => {
               <TextField
                 helperText="Yangi kiritilgan parolni tasdiqlang"
                 fullWidth
-                label="Confirm Password"
+                label="Confirm New Password"
                 name="confirmpassword"
                 onChange={handleChange}
                 required

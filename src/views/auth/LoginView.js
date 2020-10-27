@@ -84,10 +84,10 @@ const LoginView = props => {
 
               Axios.post(`http://195.158.2.207/api/v1/auth/login`, data)
                 .then(res => {
+                  setOpenSuccess(true);
                   localStorage.setItem('logen-authorization', res.data.token);
 
                   setTimeout(() => {
-                    setOpenSuccess(true);
                     navigate('/app/customers', { replace: true });
                     // history.push('/app/customers');
                   }, 1000);

@@ -20,6 +20,9 @@ import {
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import axios from 'axios';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -30,6 +33,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2)
   }
 }));
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const variants = ['h1', 'h3', 'body1', 'caption'];
 
@@ -56,6 +63,8 @@ const myMassArry = [];
 const ProductDetail = ({ className, ...rest }) => {
   const [isMyBool, setIsMyBool] = useState(false);
   const [myUsers, setMyUsers] = useState(false);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     let token = localStorage.getItem('logen-authorization');
@@ -108,8 +117,8 @@ const ProductDetail = ({ className, ...rest }) => {
       }
     })
       .then(result => {
-        if (result.data.success) alert('Xabar yuborildi');
-        else alert('Xabar yuborishda xato yuz berdi');
+        if (result.data.success) setOpenSuccess(true);
+        else setOpenError(true);
 
         setIsMyBool(false);
       })
@@ -123,17 +132,51 @@ const ProductDetail = ({ className, ...rest }) => {
     });
   };
 
+  const [openSuccess, setOpenSuccess] = React.useState(false);
+  const [openError, setOpenError] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSuccess(false);
+    setOpenError(false);
+  };
+
   return myUsers ? (
     <form noValidate className={clsx(classes.root, className)} {...rest}>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={openSuccess}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success">
+          {t('auth.success')}
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={openError}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error">
+          {t('auth.err')}
+        </Alert>
+      </Snackbar>
       <Card>
-        <CardHeader subheader="Haydovchilarga ma'lumot junatish" title="SMS " />
+        <CardHeader
+          subheader={t('sendMsg.subheader')}
+          title={t('sendMsg.title')}
+        />
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
             <Grid item md={12} xs={12}>
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="demo-simple-select-outlined-label">
-                  Dan
+                  {t('sendMsg.mass')}
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-outlined-label"
@@ -144,26 +187,26 @@ const ProductDetail = ({ className, ...rest }) => {
                   name="weight"
                 >
                   <MenuItem value="" disabled>
-                    Tonna
+                    {t('sendMsg.mass')}
                   </MenuItem>
                   {myMassArry.map(item => (
                     <MenuItem key={item} value={item}>
                       {item}
                     </MenuItem>
                   ))}
-                  <MenuItem value={'ALL'}>ALL</MenuItem>
+                  <MenuItem value={'ALL'}>{t('sendMsg.all')}</MenuItem>
                 </Select>
-                <FormHelperText> Og'irlikni kiriting </FormHelperText>
+                <FormHelperText> {t('sendMsg.enterMass')} </FormHelperText>
               </FormControl>
             </Grid>
 
             <Grid item md={12} xs={12}>
               <TextField
-                helperText="Xabar kiriting"
+                helperText={t('sendMsg.enterMsg')}
                 fullWidth
                 rows={4}
                 multiline
-                label="Xabar junatish"
+                label={t('sendMsg.enterMsg')}
                 name="message"
                 onChange={handleChange}
                 required
@@ -181,7 +224,7 @@ const ProductDetail = ({ className, ...rest }) => {
             color="primary"
             variant="contained"
           >
-            Send Message
+            {t('sendMsg.sendSMS')}
           </Button>
         </Box>
       </Card>

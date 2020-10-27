@@ -1,25 +1,24 @@
 .top-table-wrap {
     // background-color: red;
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+
 
     div.item-left {
         // width: 30%;
     }
 
     div.item-right {
+        margin-top: 10px;
         display: flex;
         flex-wrap: wrap;
 
         div.item {
-            margin-left: 10px;
+            margin-right: 10px;
 
 
             @media all and (max-width:768px) {
                 margin-top: 10px;
-                margin-left: 0;
+                margin-right: 0;
                 width: 100%;
             }
         }

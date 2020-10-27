@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
 
 const LoginView = props => {
   const { t } = useTranslation();
+  const [user, updateUser] = useState('');
 
   const classes = useStyles();
   const navigate = useNavigate();
@@ -83,11 +84,12 @@ const LoginView = props => {
 
               Axios.post(`http://195.158.2.207/api/v1/auth/login`, data)
                 .then(res => {
-                  console.log(res);
-                  console.log(res.data);
-                  setOpenSuccess(true);
+                  localStorage.setItem('logen-authorization', res.data.token);
+
                   setTimeout(() => {
+                    setOpenSuccess(true);
                     navigate('/app/customers', { replace: true });
+                    // history.push('/app/customers');
                   }, 1000);
                 })
                 .catch(err => {

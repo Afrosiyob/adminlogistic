@@ -13,5 +13,14 @@
     "editAccount": "Accountni o'zgartirish",
     "addData": "Ma'lumotlar qo'shish",
     "addDriver": "Haydovchi qo'shish"
+  },
+  "sendMsg": {
+    "subheader": "Haydovchilarga ma'lumot junatish",
+    "title": "SMS",
+    "mass": "Tonna",
+    "all": "Hammasi",
+    "enterMass": "Og'irlikni kiriting",
+    "enterMsg": "Xabar kiriting",
+    "sendSMS": "Xabar jo'natish"
   }
 }

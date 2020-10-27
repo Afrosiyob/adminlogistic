@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
-  Avatar,
   Box,
   Card,
   Checkbox,
@@ -15,13 +14,11 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
   makeStyles
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import UserDetailModal from './UserDetailModal';
-import Axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -30,14 +27,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Results = ({ className, customers, ...rest }) => {
+const Results = ({ className, customers, users, ...rest }) => {
   let { id } = useParams();
   const classes = useStyles();
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
-  const [users, setUsers] = useState({ data: [] });
+  // const [users, setUsers] = useState({ data: [] });
 
   // useEffect(() => {
   //   let token = localStorage.getItem('logen-authorization');
@@ -55,23 +52,21 @@ const Results = ({ className, customers, ...rest }) => {
   //     .catch(err => console.log(err));
   // }, []);
 
-  useEffect(() => {
-    let token = localStorage.getItem('logen-authorization');
-    Axios.get('http://195.158.2.207/api/v1/users?page=1', {
-      headers: { Authorization: 'Bearer ' + token }
-    })
-      .then(res => {
-        // setUsers(res.data);
-        console.log('====================================');
-        console.log('this is table data = ' + res);
-        console.log('====================================');
-      })
-      .catch(err => {
-        console.log('====================================');
-        console.log(err);
-        console.log('====================================');
-      });
-  }, []);
+  // useEffect(() => {
+  //   let token = localStorage.getItem('logen-authorization');
+  //   Axios.get(`http://195.158.2.207/api/v1/language`)
+  //     .then(res => {
+  //       // setUsers(res.data);
+  //       console.log('====================================');
+  //       console.log('this is table data = ' + res);
+  //       console.log('====================================');
+  //     })
+  //     .catch(err => {
+  //       console.log('====================================');
+  //       console.log(err);
+  //       console.log('====================================');
+  //     });
+  // }, []);
 
   const handleSelectAll = event => {
     let newSelectedCustomerIds;
@@ -119,6 +114,11 @@ const Results = ({ className, customers, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
+  console.log(
+    'props in users ===== wefcwef============== wefewf======== wefwef========='
+  );
+  console.log(users);
+  console.log('====================================');
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>

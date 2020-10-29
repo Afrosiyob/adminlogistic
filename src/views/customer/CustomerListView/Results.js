@@ -165,6 +165,18 @@ const Results = ({ className, customers, users, ...rest }) => {
                       customerName={user.fullname}
                     />
                   </TableCell>
+                  <TableCell>
+                    <UserDetailModal
+                      getInitials={getInitials(user.phonenumber)}
+                      customerName={user.phonenumber}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <UserDetailModal
+                      getInitials={getInitials(user.location)}
+                      customerName={user.location}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
 

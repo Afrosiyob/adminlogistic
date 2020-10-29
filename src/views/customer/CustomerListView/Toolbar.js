@@ -14,7 +14,8 @@ import {
   Select,
   FormControl,
   MenuItem,
-  InputLabel
+  InputLabel,
+  FormHelperText
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Search as SearchIcon } from 'react-feather';
@@ -39,9 +40,14 @@ const useStyles = makeStyles(theme => ({
 const Toolbar = ({ className, ...rest }) => {
   const classes = useStyles();
   const [age, setAge] = React.useState('');
+  const [agetwo, setAgetwo] = React.useState('');
 
-  const handleChange = event => {
+  const handleChangeone = event => {
     setAge(event.target.value);
+  };
+
+  const handleChangetwo = event => {
+    setAgetwo(event.target.value);
   };
 
   return (
@@ -78,55 +84,51 @@ const Toolbar = ({ className, ...rest }) => {
               </div>
               <div className="item-right">
                 <div className="item">
-                  <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                  >
-                    <InputLabel id="demo-simple-select-outlined-label">
-                      Locatsiya
+                  <FormControl className={classes.formControl}>
+                    <InputLabel
+                      shrink
+                      id="demo-simple-select-placeholder-label-label"
+                    >
+                      Location
                     </InputLabel>
                     <Select
-                      labelId="demo-simple-select-outlined-label"
-                      id="demo-simple-select-outlined"
+                      labelId="demo-simple-select-placeholder-label-label"
+                      id="demo-simple-select-placeholder-label"
                       value={age}
-                      onChange={handleChange}
-                      label="Age"
+                      onChange={handleChangeone}
+                      displayEmpty
+                      className={classes.selectEmpty}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={10}>
-                        Tewefwefwefwefcwefcwefcewfcwefewn
-                      </MenuItem>
+                      <MenuItem value="">All</MenuItem>
+                      <MenuItem value={10}>Ten</MenuItem>
                       <MenuItem value={20}>Twenty</MenuItem>
                       <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
+                    <FormHelperText>Chose Location</FormHelperText>
                   </FormControl>
                 </div>
                 <div className="item">
-                  <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                  >
-                    <InputLabel id="demo-simple-select-outlined-label">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel
+                      shrink
+                      id="demo-simple-select-placeholder-label-label"
+                    >
                       Transport type
                     </InputLabel>
                     <Select
-                      labelId="demo-simple-select-outlined-label"
-                      id="demo-simple-select-outlined"
-                      value={age}
-                      onChange={handleChange}
-                      label="Age"
+                      labelId="demo-simple-select-placeholder-label-label"
+                      id="demo-simple-select-placeholder-label"
+                      value={agetwo}
+                      onChange={handleChangetwo}
+                      displayEmpty
+                      className={classes.selectEmpty}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={10}>
-                        Tewefwefwefwefcwefcwefcewfcwefewn
-                      </MenuItem>
+                      <MenuItem value="">All</MenuItem>
+                      <MenuItem value={10}>Ten</MenuItem>
                       <MenuItem value={20}>Twenty</MenuItem>
                       <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
+                    <FormHelperText>Chose Transport type</FormHelperText>
                   </FormControl>
                 </div>
                 <div className="item">

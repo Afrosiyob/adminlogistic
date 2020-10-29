@@ -34,40 +34,6 @@ const Results = ({ className, customers, users, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
-  // const [users, setUsers] = useState({ data: [] });
-
-  // useEffect(() => {
-  //   let token = localStorage.getItem('logen-authorization');
-  //   Axios.get({
-  //     url: 'http://195.158.2.207/api/v1/users?page=1',
-  //     headers: {
-  //       Authorization: 'Bearer ' + token
-  //     }
-  //   })
-  //     .then(result => {
-  //       setUsers('wefwef this is table data' + result.data);
-
-  //       console.log(users);
-  //     })
-  //     .catch(err => console.log(err));
-  // }, []);
-
-  // useEffect(() => {
-  //   let token = localStorage.getItem('logen-authorization');
-  //   Axios.get(`http://195.158.2.207/api/v1/language`)
-  //     .then(res => {
-  //       // setUsers(res.data);
-  //       console.log('====================================');
-  //       console.log('this is table data = ' + res);
-  //       console.log('====================================');
-  //     })
-  //     .catch(err => {
-  //       console.log('====================================');
-  //       console.log(err);
-  //       console.log('====================================');
-  //     });
-  // }, []);
-
   const handleSelectAll = event => {
     let newSelectedCustomerIds;
 
@@ -114,11 +80,6 @@ const Results = ({ className, customers, users, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
-  console.log(
-    'props in users ===== wefcwef============== wefewf======== wefwef========='
-  );
-  console.log(users.data[0].fullname);
-  console.log('====================================');
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
@@ -163,78 +124,35 @@ const Results = ({ className, customers, users, ...rest }) => {
                     <UserDetailModal
                       getInitials={getInitials(user.fullname)}
                       customerName={user.fullname}
+                      customerPhonenumber={user.phonenumber}
+                      customerLocation={user.location}
+                      customerStatus={user.status}
+                      customerTransportType={user.transportType}
+                      customerTransportGovNumber={user.transportGovNumber}
+                      customerBaggageVolume={user.baggageVolume}
+                      customerBaggageMass={user.baggageMass}
+                      customerTimeOfStatus={user.timeOfStatus}
+                      customerPassportPhoto={user.passportPhoto}
+                      customerTechPassportPhoto={user.techPassportPhoto}
                     />
                   </TableCell>
-                  <TableCell>
-                    <UserDetailModal
-                      getInitials={getInitials(user.phonenumber)}
-                      customerName={user.phonenumber}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <UserDetailModal
-                      getInitials={getInitials(user.location)}
-                      customerName={user.location}
-                    />
-                  </TableCell>
+                  <TableCell>{user.phonenumber}</TableCell>
+                  <TableCell>{user.location}</TableCell>
+                  <TableCell>{user.status}</TableCell>
+                  <TableCell>{user.transportType}</TableCell>
+                  <TableCell>{user.transportGovNumber}</TableCell>
+                  <TableCell>{user.baggageVolume}</TableCell>
+                  <TableCell>{user.baggageMass}</TableCell>
+                  <TableCell>{user.timeOfStatus}</TableCell>
                 </TableRow>
               ))}
-
-              {/* {customers.slice(0, limit).map(customer => (
-                <TableRow
-                  hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={event => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell>
-
-                  <TableCell>
-                    <UserDetailModal
-                      customClassName={classes.avatar}
-                      srcImg={customer.avatarUrl}
-                      getInitials={getInitials(customer.name)}
-                      customerName={customer.name}
-                    />
-                  </TableCell>
-
-                  <TableCell>{customer.email}</TableCell>
-
-                  <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
-                  </TableCell>
-
-                  <TableCell>{customer.phone}</TableCell>
-
-                  <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
-                  </TableCell>
-                  <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
-                  </TableCell>
-                  <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
-                  </TableCell>
-                  <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
-                  </TableCell>
-                  <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
-                  </TableCell>
-                </TableRow>
-              ))} */}
             </TableBody>
           </Table>
         </Box>
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={users.data.length}
         onChangePage={handlePageChange}
         onChangeRowsPerPage={handleLimitChange}
         page={page}
@@ -247,7 +165,8 @@ const Results = ({ className, customers, users, ...rest }) => {
 
 Results.propTypes = {
   className: PropTypes.string,
-  customers: PropTypes.array.isRequired
+  customers: PropTypes.array.isRequired,
+  userPage: PropTypes.number
 };
 
 export default Results;

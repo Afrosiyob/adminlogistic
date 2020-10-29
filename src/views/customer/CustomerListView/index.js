@@ -20,12 +20,13 @@ const CustomerListView = () => {
   const classes = useStyles();
   const [customers] = useState(data);
   const [users, setUsers] = useState();
+  const [page, setPage] = useState(1);
 
-  useEffect(() => {
+  const getData = page => {
     let token = localStorage.getItem('logen-authorization');
 
     axios
-      .get('http://195.158.2.207/api/v1/users', {
+      .get(`http://195.158.2.207/api/v1/users?page=${page}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -39,15 +40,43 @@ const CustomerListView = () => {
       .catch(error => {
         console.error(error);
       });
+  };
+
+  useEffect(() => {
+    getData(page);
   }, []);
+
   console.log('fdghdrgyr', get(users, 'data', []));
+
+  const handleChange = numberPage => {
+    setPage(page + numberPage);
+    setTimeout(() => {
+      getData(page);
+    }, 1000);
+    console.log('change page====================================');
+    console.log(page);
+    console.log('====================================');
+  };
 
   return (
     <Page className={classes.root} title="Customers">
       <Container maxWidth={false}>
         <Toolbar />
         <Box mt={3}>
-          {users && <Results customers={customers} users={users} />}
+          {users && (
+            <div>
+              <Results customers={customers} users={users} />
+
+              <button
+                onClick={() => {
+                  handleChange(2);
+                }}
+              >
+                {' '}
+                next{' '}
+              </button>
+            </div>
+          )}
         </Box>
       </Container>
     </Page>

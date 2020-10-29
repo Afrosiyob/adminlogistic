@@ -66,14 +66,55 @@ export default function UserDetailModal(props) {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            {[...new Array(50)]
-              .map(
-                () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-              )
-              .join('\n')}
+            <ul style={{ padding: '15px' }}>
+              <li>
+                <b>Full Name : </b> {props.customerName}{' '}
+              </li>
+              <li>
+                <b>PhoneNumber : </b> {props.customerPhonenumber}
+              </li>
+              <li>
+                <b>Location : </b> {props.customerLocation}
+              </li>
+              <li>
+                <b>Status : </b> {props.customerStatus}
+              </li>
+              <li>
+                <b>TransportType : </b> {props.customerTransportType}
+              </li>
+              <li>
+                <b>TransportGovNumber : </b> {props.customerTransportGovNumber}
+              </li>
+              <li>
+                <b>BaggageVolume : </b> {props.customerBaggageVolume}
+              </li>
+              <li>
+                <b>BaggageMass : </b> {props.customerBaggageMass}
+              </li>
+              <li>
+                <b>TimeOfStatus : </b> {props.customerTimeOfStatus}
+              </li>
+            </ul>
+            <div style={{ padding: '10px 15px' }}>
+              <img
+                src={
+                  `http://195.158.2.207/uploads/` + props.customerPassportPhoto
+                }
+                alt="passPhoto"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            </div>
+
+            <div style={{ padding: '10px 15px' }}>
+              <img
+                src={
+                  `http://195.158.2.207/uploads/` +
+                  props.customerTechPassportPhoto
+                }
+                alt="passPhoto"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            </div>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

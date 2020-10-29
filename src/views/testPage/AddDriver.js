@@ -23,6 +23,7 @@ import {
   FormControl
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import Axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,8 +58,26 @@ const submit = values => {
     values.tech_passport,
     values.tech_passport.name
   );
-  debugger;
+
   console.log(formData);
+  let token = localStorage.getItem('logen-authorization');
+
+  // Axios(
+  //   {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': `multipart/form-data`,
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   },
+  //   formData
+  // )
+  //   .then(res => {
+  //     console.log(res);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
 };
 
 const AddDriver = () => {
@@ -131,7 +150,8 @@ const AddDriver = () => {
                   setFieldValue,
                   isSubmitting,
                   touched,
-                  values
+                  values,
+                  formProps
                 }) => (
                   <form onSubmit={handleSubmit}>
                     <Box mb={3}>
@@ -338,26 +358,6 @@ const AddDriver = () => {
                       type="file"
                       variant="outlined"
                     />
-                    {/* fwfwefwefwefewfwefwefwefwefwefwefwefwefwefweffewfwef */}
-                    {/* <Box alignItems="center" display="flex" ml={-1}>
-                  <Checkbox
-                    checked={values.policy}
-                    name="policy"
-                    onChange={handleChange}
-                  />
-                  <Typography color="textSecondary" variant="body1">
-                    I have read the{' '}
-                    <Link
-                      color="primary"
-                      component={RouterLink}
-                      to="#"
-                      underline="always"
-                      variant="h6"
-                    >
-                      Terms and Conditions
-                    </Link>
-                  </Typography>
-                </Box> */}
 
                     <Box my={2}>
                       <Button
